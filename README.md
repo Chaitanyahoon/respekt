@@ -1,18 +1,26 @@
-# 🫡 respekt
+<div align="center">
+  <h1>🫡 respekt</h1>
+  <p><b>Your API responses, locked and respected.</b></p>
+  <p>
+    <a href="https://www.npmjs.com/package/respekt"><img src="https://img.shields.io/npm/v/respekt?color=blue&style=flat-square" alt="npm" /></a>
+    <a href="https://nodejs.org"><img src="https://img.shields.io/node/v/respekt?style=flat-square" alt="Node" /></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License: MIT" /></a>
+  </p>
+  <br/>
+  <a href="https://github.com/Chaitanyahoon/respekt">
+    <img src="src/Programmer%20Day%20-%20Porforever.gif" alt="Programmer Day" width="350"/>
+  </a>
+</div>
 
-> Your API responses, locked and respected.
+<br/>
 
-**respekt** automatically infers JSON response schemas from real API traffic, locks them as contracts, and enforces them in CI/production — catching silent schema drift before your users do. Zero manual schema writing required.
-
-[![npm](https://img.shields.io/npm/v/respekt)](https://www.npmjs.com/package/respekt)
-[![Node](https://img.shields.io/node/v/respekt)](https://nodejs.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+**respekt** automatically infers JSON response schemas from real API traffic, locks them as contracts, and enforces them in CI/production — catching silent schema drift before your users do. **Zero manual schema writing required.**
 
 ---
 
-## How it works
+## 🛠 How it works
 
-```
+```text
   DEV / STAGING                       CI / PRODUCTION
 ┌───────────────────┐              ┌───────────────────┐
 │  respekt.observe() │              │  respekt.enforce() │
@@ -23,13 +31,13 @@
 └───────────────────┘              └───────────────────┘
 ```
 
-1. **OBSERVE** — Attach middleware in dev. It silently records response shapes.
-2. **LOCK** — Run `npx respekt lock` to infer Zod + JSON schemas and write contract files.
-3. **ENFORCE** — Attach middleware in production. Drift triggers a `RespektViolation`.
+1. 🕵️‍♂️ **OBSERVE** — Attach the middleware in dev. It silently records response shapes.
+2. 🔒 **LOCK** — Run `npx respekt lock` to infer Zod + JSON schemas and write contract files.
+3. 🛡️ **ENFORCE** — Attach the middleware in production/CI. Drift triggers a `RespektViolation`.
 
 ---
 
-## Install
+## 📦 Install
 
 ```bash
 npm install respekt zod
@@ -37,7 +45,7 @@ npm install respekt zod
 
 ---
 
-## Quickstart
+## 🚀 Quickstart
 
 ### 1. Observe traffic
 
@@ -85,26 +93,26 @@ app.use(respekt.enforce({
 
 ---
 
-## CLI Reference
+## 💻 CLI Reference
 
 All commands accept `-d, --dir <path>` (default: `./contracts`).
 
-### `respekt lock`
-Reads `.respekt-traffic.json` → writes one `*.schema.json` per route containing Zod schema + JSON Schema + shape snapshot.
+### 🔒 `respekt lock`
+Reads `.respekt-traffic.json` → writes one `*.schema.json` per route containing a Zod schema + JSON Schema + shape snapshot.
 
-### `respekt diff`
+### 🔍 `respekt diff`
 Structural comparison of locked vs current traffic. Exits with code `1` if drift found — ideal for CI.
 
-```
+```text
   ❌ GET /api/users — 2 violation(s):
      • user.age: was number, now string
      • user.role: was required, now optional
 ```
 
-### `respekt report`
+### 📊 `respekt report`
 ASCII summary table of all routes with samples, field count, lock status, and drift score.
 
-```
+```text
 📊 respekt — Route Report
 
 ┌─────────────────────────────────┬─────────┬────────┬──────────┬────────────┐
@@ -116,7 +124,7 @@ ASCII summary table of all routes with samples, field count, lock status, and dr
 
 ---
 
-## Config Options
+## ⚙️ Config Options
 
 ### `respekt.observe(config)`
 
@@ -136,7 +144,7 @@ ASCII summary table of all routes with samples, field count, lock status, and dr
 
 ---
 
-## Edge Case Behavior
+## 🧠 Edge Case Behavior
 
 | Scenario | Zod Output |
 |----------|-----------|
@@ -150,7 +158,7 @@ ASCII summary table of all routes with samples, field count, lock status, and dr
 
 ---
 
-## `RespektViolation` Error
+## 🚨 `RespektViolation` Error
 
 ```ts
 import { RespektViolation } from 'respekt';
@@ -172,7 +180,7 @@ try { /* ... */ } catch (err) {
 
 ---
 
-## Fastify Support
+## ⚡ Fastify Support
 
 ```ts
 import Fastify from 'fastify';
@@ -186,7 +194,7 @@ app.use(respekt.observe({ routes: ['/api/*'] }));
 
 ---
 
-## GitHub Actions CI Example
+## 🤖 GitHub Actions CI Example
 
 ```yaml
 name: Contract Check
@@ -207,7 +215,7 @@ jobs:
         if: always()
 ```
 
-### Recommended workflow
+### 💡 Recommended workflow
 1. **Dev:** Run with `respekt.observe()` → collect traffic
 2. **Before PR:** `npx respekt lock` → commit contracts
 3. **CI:** `npx respekt diff` → fails if drift
@@ -215,7 +223,7 @@ jobs:
 
 ---
 
-## Why respekt?
+## 🤔 Why respekt?
 
 APIs drift silently. A backend dev renames a field, changes a type, or makes a previously-required field optional — and nobody notices until the frontend breaks in production.
 
@@ -228,12 +236,12 @@ No manual schema writing. No OpenAPI specs to maintain. Just real traffic → re
 
 ---
 
-## Requirements
+## 📋 Requirements
 
 - **Node.js** 18+
 - **zod** ^3.x (peer dependency)
 - **Express** 4+/5+ or **Fastify** 4+ (with `@fastify/middie`)
 
-## License
+## 📄 License
 
 MIT
